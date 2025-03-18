@@ -11,13 +11,17 @@ import java.io.IOException;
 /**
  * JavaFX App
  */
-public class App extends Application {
+public class ClockDisplay extends Application {
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        
+        // create an instance of the ClockPane class
+        ClockPane clock = new ClockPane();
+        scene = new Scene(loadFXML("controller"), 640, 480);
+        stage.setTitle("Clock Display");
         stage.setScene(scene);
         stage.show();
     }
@@ -27,7 +31,7 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ClockDisplay.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
