@@ -71,19 +71,15 @@ public class ControlController {
         System.out.println("The button event is " + event);
         isRunning = true;
         // allows the clock to run in the background
-        Thread thread = new Thread(() -> {
-            while (isRunning) {
+        java.util.concurrent.ScheduledExecutorService executor = java.util.concurrent.Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(() -> {
+            if (isRunning) {
                 clock.tick();
                 javafx.application.Platform.runLater(this::updateLabels);
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } else {
+                executor.shutdown();
             }
-        });
-        thread.setDaemon(true);
-        thread.start();
+        }, 0, 1, java.util.concurrent.TimeUnit.MILLISECONDS);
     }
 
     @FXML
