@@ -17,13 +17,27 @@ public class ClockDisplay extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        
-        // create an instance of the ClockPane class
-        ClockPane clock = new ClockPane();
-        scene = new Scene(loadFXML("controller"), 640, 480);
-        stage.setTitle("Clock Display");
+
+        // create clock object
+        Clock clock = new Clock();
+        clock.setTime();
+
+        // create clock controller
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("clockControl.fxml"));
+        Parent root = loader.load();
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        // create digital clock pane
+        DigitalClockPane digitalClockPane = new DigitalClockPane(clock);
+        Scene scene2 = new Scene(digitalClockPane);
+        stage.setScene(scene2);
+        // stage.show();
+
+
+
+
     }
 
     static void setRoot(String fxml) throws IOException {

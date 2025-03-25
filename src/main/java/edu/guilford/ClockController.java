@@ -6,16 +6,13 @@ import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class ControlController {
-    // instantiate labels
-    @FXML
-    private Label hourLabel;
-    @FXML
-    private Label minuteLabel;
-    @FXML
-    private Label secondLabel;
-    @FXML
-    private Label millisecondLabel;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
+public class ClockController {
 
     // instantiate buttons
     @FXML
@@ -43,21 +40,26 @@ public class ControlController {
     @FXML
     private Button subtractMillisecondButton;
 
+    // constructor
+    public ClockController() {
+    }
+
     // instantiate a new Clock object
     private Clock clock = new Clock();
     private boolean isRunning = false;
 
-    
-    private void updateLabels() {
-        hourLabel.setText(String.format("%02d", clock.getHour()) + "h:");
-        minuteLabel.setText(String.format("%02d", clock.getMinute()) + "m:");
-        secondLabel.setText(String.format("%02d", clock.getSecond()) + "s:");
-        millisecondLabel.setText(String.format("%03d", clock.getMillisecond()) + "ms");
-       if (clock.getHour() == 0 && clock.getMinute() == 0 && clock.getSecond() == 0 && clock.getMillisecond() == 0) {
-            isRunning = false;
-        }
+    // get clock
+    public Clock getClock() {
+        return clock;
     }
 
+    // set clock
+    public void setClock(Clock clock) {
+        this.clock = clock;
+    }
+
+
+    
     /**
      * Starts the clock and allows it to run in the background.
      * This method is triggered by an ActionEvent, typically from a button press.
@@ -66,7 +68,6 @@ public class ControlController {
      *
      * @param event the ActionEvent that triggered this method
      */
-    @FXML
     public void start(ActionEvent event) {
         System.out.println("The button event is " + event);
         isRunning = true;
@@ -75,24 +76,23 @@ public class ControlController {
         executor.scheduleAtFixedRate(() -> {
             if (isRunning) {
                 clock.tick();
-                javafx.application.Platform.runLater(this::updateLabels);
+                
             } else {
                 executor.shutdown();
             }
         }, 0, 1, java.util.concurrent.TimeUnit.MILLISECONDS);
     }
 
-    @FXML
+    
     public void stop(ActionEvent event) {
         System.out.println("The button event is " + event);
         isRunning = false;
     }
 
-    @FXML
+    
     public void reset(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.clear();
-        updateLabels();
     }
 
     /**
@@ -102,7 +102,6 @@ public class ControlController {
      * 
      * @param event the ActionEvent triggered by the button press
      */
-    @FXML
     public void toggleTimer(ActionEvent event) {
         System.out.println("The button event is " + event);
         // toggle the timer state
@@ -116,60 +115,44 @@ public class ControlController {
         isRunning = false;
     }
 
-    @FXML
     public void addHour(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setHour(clock.getHour() + 1);
-        updateLabels();
     }
 
-    @FXML
     public void subtractHour(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setHour(clock.getHour() - 1);
-        updateLabels();
     }
 
-    @FXML
     public void addMinute(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setMinute(clock.getMinute() + 1);
-        updateLabels();
     }
 
-    @FXML
     public void subtractMinute(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setMinute(clock.getMinute() - 1);
-        updateLabels();
     }
 
-    @FXML
     public void addSecond(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setSecond(clock.getSecond() + 1);
-        updateLabels();
     }
 
-    @FXML
     public void subtractSecond(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setSecond(clock.getSecond() - 1);
-        updateLabels();
     }
 
-    @FXML
     public void addMillisecond(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setMillisecond(clock.getMillisecond() + 1);
-        updateLabels();
     }
 
-    @FXML
     public void subtractMillisecond(ActionEvent event) {
         System.out.println("The button event is " + event);
         clock.setMillisecond(clock.getMillisecond() - 1);
-        updateLabels();
     }
 
 

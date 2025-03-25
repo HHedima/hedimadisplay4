@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<FlowPane alignment="CENTER" prefHeight="180.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.guilford.ClockController">
+   <children>
+      <Label fx:id="hourLabel" alignment="CENTER" text="00h:">
+         <font>
+            <Font name="Monospaced Regular" size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="minuteLabel" text="00m:">
+         <font>
+            <Font name="Monospaced Regular" size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="secondLabel" text="00s:">
+         <font>
+            <Font name="Monospaced Regular" size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="millisecondLabel" text="000ms">
+         <font>
+            <Font name="Monospaced Regular" size="48.0" />
+         </font>
+      </Label>
+   </children>
+</FlowPane>
